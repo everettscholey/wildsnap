@@ -26,9 +26,9 @@ Animal lovers of all experience levels who want to document wildlife sightings i
 ┌─────────────────────────────────────────────────┐
 │                                                 │
 │   SNAP ──► IDENTIFY ──► COLLECT                 │
-│                          │                       │
-│                          ▼                       │
-│                         MAP                      │
+│                          │                      │
+│                          ▼                      │
+│                         MAP                     │
 │                                                 │
 └─────────────────────────────────────────────────┘
 ```
@@ -87,23 +87,28 @@ Animal lovers of all experience levels who want to document wildlife sightings i
 
 **API Candidates**
 
-| API | Coverage | Notes |
-|-----|----------|-------|
-| **iNaturalist Computer Vision** | Broad (mammals, birds, insects, plants, fungi) | Community-backed, strong accuracy, free via iNaturalist API. Best candidate for future expansion to insects and beyond. |
-| **Google Cloud Vision** | General object/animal detection | Good for broad detection but less precise at species level. Better as a supplementary signal. |
-| **Merlin / eBird (Cornell Lab)** | Birds only | Excellent bird ID but limited to birds. Could supplement a broader API for bird-specific accuracy. |
+| API | Coverage | Accuracy | Hosting | License | Notes |
+|-----|----------|----------|---------|---------|-------|
+| **Google SpeciesNet** | 2,000+ species (mammals, birds, some reptiles) | 94.5% species-level, 99.4% animal detection | Self-hosted (Python/PyPI) | Apache 2.0 (free, commercial OK) | Open-source. Combines MegaDetector + Species Classifier. Supports geofencing by country code. Trained on 65M+ camera trap images. |
+| **Animal Detect API** | Same as SpeciesNet (hosted wrapper) | Same as SpeciesNet | Hosted REST API | Pay-per-use (contact for pricing) | Hosted version of SpeciesNet — avoids self-hosting overhead. 1.2-1.5s response time. 5MB image limit. |
+| **Google Cloud Vision** | General object/animal detection | Good for broad detection, poor at species level | Hosted REST API | $1.50/1K images (1K/month free) | Not suitable for species-level ID. Useful as a pre-filter ("is this a photo of an animal?"). |
+| **Merlin / eBird (Cornell Lab)** | 6,000+ bird species | Best-in-class for birds | No public API (app only) | N/A | ML models not available for third-party integration. eBird data API is available (free, API key required). |
+| **iNaturalist Computer Vision** | 108,000+ taxa | Gold standard (community-validated) | **Private — not available for third-party apps** | N/A | CV model restricted to iNaturalist's own apps (website, iOS, Android, Seek). Not a viable integration path. |
 
-**Recommendation:** iNaturalist's Computer Vision API as the primary identification engine. It offers the broadest species coverage, strong community validation, and a natural path to adding insects and other animal groups. Google Cloud Vision can serve as a fallback or supplementary signal.
+**Recommendation:** **Google SpeciesNet** as the primary identification engine, either self-hosted or via the **Animal Detect API** for a managed solution. SpeciesNet offers strong species-level accuracy (94.5%) for mammals and birds, an open-source Apache 2.0 license, and geofencing support to improve predictions by region. **Google Cloud Vision** can serve as a lightweight pre-filter to confirm a photo contains an animal before running the heavier species classifier.
+
+**Note on future insect expansion:** SpeciesNet has limited insect coverage. Adding insects in v1.1 will likely require a supplementary model — either a custom model fine-tuned on publicly available iNaturalist research-grade data, or open-source insect classifiers from Hugging Face/Kaggle.
 
 **Species Data & Fun Facts**
 
-| Source | Use |
-|--------|-----|
-| **Wikipedia API** | Fun facts, species descriptions, habitat info. Widely available and frequently updated. |
-| **IUCN Red List API** | Conservation status (Endangered, Vulnerable, etc.). Adds educational depth. |
-| **Encyclopedia of Life (EOL)** | Curated species profiles with rich media. Good fallback for fun facts. |
+| Source | Use | Pricing |
+|--------|-----|---------|
+| **Wikipedia REST API** | Fun facts, species descriptions, habitat info. Massive coverage, frequently updated. Simple endpoint: `/page/summary/{Species_Name}`. | Free, no API key required |
+| **IUCN Red List API** | Conservation status (Endangered, Vulnerable, etc.). Authoritative extinction risk data. 172,600+ species assessed. | Free for non-commercial use (API key required). Commercial use requires IBAT (paid). |
+| **Encyclopedia of Life (EOL) / TraitBank** | Structured trait data (body size, diet, habitat, lifespan, weight). Covers 1.9M+ species. | Free and open |
+| **eBird API 2.0** | Bird-specific supplementary data: taxonomy, range, recent sightings, hotspots, seasonal occurrence. | Free with API key |
 
-**Recommendation:** Wikipedia API as the primary source for fun facts and descriptions, supplemented by IUCN Red List for conservation status badges on Pokedex entries.
+**Recommendation:** **Wikipedia REST API** as the primary source for fun facts and descriptions. **IUCN Red List** for conservation status badges (note: commercial use licensing needs review). **EOL TraitBank** for structured trait data (weight, lifespan, diet). **eBird API** for bird-specific range and sighting data.
 
 ### 4.3 Pokedex (Collection)
 
@@ -187,7 +192,7 @@ Each Pokedex entry contains:
 
 **Biome Accent Colors (Mini-Card Borders)**
 | Biome | Color | Example Species |
-|-------|-------|------------------|
+|-------|-------|-----------------|
 | Forest | Deep green | Deer, fox, woodpecker |
 | Grassland | Golden wheat | Bison, meadowlark |
 | Wetland | Teal blue | Heron, otter |
@@ -344,7 +349,7 @@ The camera is the default tab — the app opens ready to snap.
 
 ### v1.1 — Expanded Species
 - Add reptiles & amphibians
-- Add insects
+- Add insects (supplementary model needed — SpeciesNet has limited insect coverage)
 - Improved ID accuracy with model updates
 
 ### v1.2 — Social & Community
@@ -372,12 +377,13 @@ The camera is the default tab — the app opens ready to snap.
 |---|----------|--------|
 | 1 | Cross-platform framework: React Native vs Flutter? | TBD |
 | 2 | Map tile provider for watercolor style? (Stamen, Mapbox, custom) | TBD |
-| 3 | iNaturalist API terms of service & rate limits? | Needs research |
+| 3 | SpeciesNet self-hosted vs Animal Detect API? (cost/latency tradeoff) | Needs evaluation |
 | 4 | Age restrictions / COPPA compliance requirements? | TBD |
 | 5 | Exact GPS fuzzing algorithm (random offset vs grid snap)? | TBD |
 | 6 | Push notification strategy for offline queue results? | TBD |
+| 7 | IUCN Red List commercial licensing — IBAT required? | Needs review |
 
 ---
 
-*Document version: 1.0*
+*Document version: 1.1*
 *Last updated: 2026-03-27*
