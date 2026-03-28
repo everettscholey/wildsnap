@@ -1,17 +1,17 @@
 # WildSnap — Product Design Document
 
-> *Pokemon Snap meets the real world.* Snap photos of animals in the wild, identify them with AI, build your personal Pokedex, and pin your sightings on a beautiful watercolor map.
+> *A real-world creature collector.* Snap photos of animals in the wild, identify them with AI, build your personal collection, and pin your sightings on a beautiful watercolor map.
 
 ---
 
 ## 1. Product Overview
 
-**WildSnap** is a mobile app for animal lovers who want to document and celebrate the animals they encounter in a fun, beautiful way. Users photograph animals in the real world — either through the in-app camera or by uploading from their gallery — and the app identifies the species using AI. Each identified animal is added to a personal Pokedex-style collection and pinned on a stylized watercolor world map.
+**WildSnap** is a mobile app for animal lovers who want to document and celebrate the animals they encounter in a fun, beautiful way. Users photograph animals in the real world — either through the in-app camera or by uploading from their gallery — and the app identifies the species using AI. Each identified animal is added to a personal collection and pinned on a stylized watercolor world map.
 
 ### Core Value Proposition
 
 - **Discover** — Learn what animals are around you with species-level AI identification
-- **Collect** — Build a personal Pokedex of every species you've encountered
+- **Collect** — Build a personal collection of every species you've encountered
 - **Remember** — Revisit your sightings on a beautiful, personalized map
 
 ### Target Audience
@@ -35,7 +35,7 @@ Animal lovers of all experience levels who want to document wildlife sightings i
 
 1. **Snap** — User takes a photo (in-app camera or gallery upload)
 2. **Identify** — AI analyzes the photo and returns its best guess at species-level identification
-3. **Collect** — The animal is added to the user's Pokedex (new entry or stacked sighting)
+3. **Collect** — The animal is added to the user's Collection (new entry or stacked sighting)
 4. **Map** — A pin is dropped on the user's personal sightings map
 
 ---
@@ -110,13 +110,13 @@ Animal lovers of all experience levels who want to document wildlife sightings i
 
 **Recommendation:** **Wikipedia REST API** as the primary source for fun facts and descriptions. **IUCN Red List** for conservation status badges (note: commercial use licensing needs review). **EOL TraitBank** for structured trait data (weight, lifespan, diet). **eBird API** for bird-specific range and sighting data.
 
-### 4.3 Pokedex (Collection)
+### 4.3 Collection
 
 **Overview**
-A personal catalog of every species the user has encountered. Inspired by the Pokemon Pokedex — browsable, sortable, and satisfying to fill.
+A personal catalog of every species the user has encountered — browsable, sortable, and satisfying to fill.
 
 **Entry Structure**
-Each Pokedex entry contains:
+Each Collection entry contains:
 - **Photo(s)** — All photos the user has taken of this species
 - **Species info** — Common name, scientific name, fun facts
 - **Sighting history** — Date and (fuzzed) location of each sighting
@@ -124,7 +124,7 @@ Each Pokedex entry contains:
 - **Nickname** — Optional user-assigned nickname per individual sighting
 
 **Duplicate Handling**
-- If the user photographs a species they've already collected, it **stacks** onto the existing Pokedex entry
+- If the user photographs a species they've already collected, it **stacks** onto the existing Collection entry
 - The entry updates with: new photo added, sighting count incremented, new map pin added
 - Each individual sighting is also browsable in a sighting log
 
@@ -156,7 +156,7 @@ Each Pokedex entry contains:
   - Date of sighting
   - Nickname (if assigned)
   - Small photo thumbnail
-  - Tap to expand to full Pokedex entry
+  - Tap to expand to full Collection entry
 
 **Location Privacy**
 - GPS coordinates are **fuzzed** to a general area (~1km radius) for storage
@@ -209,7 +209,7 @@ Each Pokedex entry contains:
 ### 5.4 Iconography & Illustration
 
 - Hand-drawn / watercolor-style icons for navigation and categories
-- Silhouetted animal outlines for unspotted Pokedex entries
+- Silhouetted animal outlines for unspotted Collection entries
 - Subtle paper/canvas texture overlays on card backgrounds
 - No heavy drop shadows — use soft watercolor washes for depth
 
@@ -220,7 +220,7 @@ Each Pokedex entry contains:
 - Watercolor-textured ring around it
 - Subtle pulse animation when camera is active
 
-**Pokedex Cards**
+**Collection Cards**
 - Rounded corners, off-white card with subtle paper texture
 - Watercolor biome-accent stripe along the top or left edge
 - Species photo as hero image
@@ -233,7 +233,7 @@ Each Pokedex entry contains:
 **Result Screen (Post-Identification)**
 - Clean white card with species photo
 - Common name (large), scientific name (small, italic)
-- "Added to your Pokedex!" confirmation
+- "Added to your Collection!" confirmation
 - Button to view entry or nickname the sighting
 
 ---
@@ -248,7 +248,7 @@ WildSnap
 │   ├── Gallery upload button
 │   └── Flash / zoom controls
 │
-├── Pokedex
+├── Collection
 │   ├── Sort/filter bar (Taxonomy | A-Z | Recent | Most Spotted)
 │   ├── Category sections (Mammals, Birds, ...)
 │   │   └── Species cards (grid view)
@@ -284,7 +284,7 @@ WildSnap
 | Tab | Icon | Screen |
 |-----|------|--------|
 | Camera | Camera icon | Photo capture (default home screen) |
-| Pokedex | Book/grid icon | Collection browser |
+| Collection | Book/grid icon | Collection browser |
 | Map | Map pin icon | Sightings map |
 | Profile | User icon | Stats & settings |
 
@@ -299,16 +299,16 @@ The camera is the default tab — the app opens ready to snap.
 1. App opens → brief onboarding (2-3 screens explaining Snap → Identify → Collect)
 2. Permission prompts: Camera, Location, Photo Library
 3. Lands on Camera tab — ready to snap
-4. Empty Pokedex and Map with encouraging empty states
+4. Empty Collection and Map with encouraging empty states
 
 ### 8.2 New Sighting (Online)
 
 1. User opens Camera tab
 2. Frames animal → taps Snap button (or uploads from gallery)
 3. Loading state: "Identifying..."
-4. Result screen: Species name, photo, "Added to your Pokedex!"
+4. Result screen: Species name, photo, "Added to your Collection!"
 5. Option to nickname the sighting
-6. Pokedex entry created/updated + map pin dropped
+6. Collection entry created/updated + map pin dropped
 
 ### 8.3 New Sighting (Offline)
 
@@ -318,9 +318,9 @@ The camera is the default tab — the app opens ready to snap.
 4. On reconnection: auto-identification runs
 5. Push notification: "We identified your photo — it's a Red-tailed Hawk!"
 
-### 8.4 Browsing the Pokedex
+### 8.4 Browsing the Collection
 
-1. User taps Pokedex tab
+1. User taps Collection tab
 2. Grid of species cards (collected ones show photo, uncollected show silhouette)
 3. Sort/filter to browse by taxonomy or alphabetical
 4. Tap a card → Species detail with photos, facts, sighting history
@@ -332,7 +332,7 @@ The camera is the default tab — the app opens ready to snap.
 2. Watercolor map loads with all sighting pins
 3. Pinch to zoom — pins cluster when zoomed out
 4. Tap a pin → mini-card with species, date, nickname
-5. Tap mini-card → full Pokedex entry
+5. Tap mini-card → full Collection entry
 
 ---
 
@@ -341,7 +341,7 @@ The camera is the default tab — the app opens ready to snap.
 ### MVP (v1.0)
 - Photo capture (camera + gallery)
 - AI identification (mammals & birds)
-- Pokedex collection with sorting
+- Collection with sorting
 - Personal sightings map (watercolor style)
 - Offline photo queue
 - Nicknames for sightings
@@ -385,5 +385,5 @@ The camera is the default tab — the app opens ready to snap.
 
 ---
 
-*Document version: 1.1*
-*Last updated: 2026-03-27*
+*Document version: 1.2*
+*Last updated: 2026-03-28*
