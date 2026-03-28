@@ -45,7 +45,7 @@ Animal lovers of all experience levels who want to document wildlife sightings i
 | Attribute | Decision |
 |-----------|----------|
 | **Platforms** | iOS + Android (mobile-first) |
-| **Framework** | React Native or Flutter (TBD) |
+| **Framework** | React Native (best balance of developer experience, ecosystem, and cross-platform power) |
 | **Photo storage** | Local-only for MVP; cloud sync on roadmap |
 | **Offline support** | Yes — snap photos offline, queue for identification when back online |
 | **Monetization** | Fully free for MVP; monetization strategy TBD |
@@ -174,6 +174,17 @@ Each Collection entry contains:
 ### 5.1 Design Philosophy
 
 **"Nature Journal"** — The app should feel like a beautiful, hand-crafted field journal. Watercolor textures, organic shapes, and hand-drawn elements throughout. Clean and uncluttered, but with warmth and personality.
+
+**Tone of Voice**
+- Playful and casual — the app should feel like an encouraging friend, not a textbook
+- Onboarding examples: "Nice snap!", "What a find!", "You're on a roll!"
+- Identification results: friendly but informative
+- Empty states: encouraging and lighthearted ("Get out there and start snapping!")
+
+**App Icon / Logo (Roadmap)**
+- Direction: Stylized camera lens with a paw print
+- Should feel organic and hand-drawn, consistent with watercolor aesthetic
+- Final design TBD
 
 ### 5.2 Color Palette
 
@@ -375,7 +386,7 @@ The camera is the default tab — the app opens ready to snap.
 
 | # | Question | Status |
 |---|----------|--------|
-| 1 | Cross-platform framework: React Native vs Flutter? | TBD |
+| 1 | ~~Cross-platform framework: React Native vs Flutter?~~ | **Decided: React Native** |
 | 2 | Map tile provider for watercolor style? (Stamen, Mapbox, custom) | TBD |
 | 3 | SpeciesNet self-hosted vs Animal Detect API? (cost/latency tradeoff) | Needs evaluation |
 | 4 | Age restrictions / COPPA compliance requirements? | TBD |
@@ -385,5 +396,5 @@ The camera is the default tab — the app opens ready to snap.
 
 ---
 
-*Document version: 1.2*
+*Document version: 1.3*
 *Last updated: 2026-03-28*
