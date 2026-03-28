@@ -1,6 +1,6 @@
 # WildSnap — Product Design Document
 
-> *A real-world creature collector.* Snap photos of animals in the wild, identify them with AI, build your personal collection, and pin your sightings on a beautiful watercolor map.
+> *A real-world photography-based creature collector.* Snap photos of animals in the wild, identify them with AI, build your personal collection, and pin your sightings on a beautiful watercolor map.
 
 ---
 
